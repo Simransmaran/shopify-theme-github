@@ -1,0 +1,89 @@
+<style>
+    .service{
+      background-color:#F7F7F7;
+      padding:20px 0;
+    }
+    .service-group {
+      background:#FFFFFF;
+      border-radius:29px;
+      margin: 0 auto;
+      display: flex;
+      max-width: 1581px;
+      padding: 20px 0;
+      justify-content: center;
+      align-items: center;
+      gap: 13rem;
+  }
+   .service-cards {
+      display: flex;
+      gap: 2rem;
+      justify-content: center;
+      align-items: center;
+  }
+    .service-card-content{
+      display:flex;
+      flex-direction:column;
+    }
+    .contentA,.contentB {
+      margin: 6px;
+  }
+    .contentA{
+      font-weight:bold;
+    }
+  </style>
+  <div class="service">
+  <div class="service-group">
+    {% for block in section.blocks %}
+      <div class="service-cards">
+        {% if block.settings['service-icons'] != blank %}
+          <img src="{{ block.settings.service-icons | img_url:'master'}}" width="50px" height="50px">
+        {% endif %}
+        <div class=" service-card-content">
+          <h4 class="contentA">{{ block.settings.service_heading }}</h4>
+          <p class="contentB">{{ block.settings.service_subheading }}</p>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+  </div>
+  {% schema %}
+  {
+    "name": "Services",
+    "settings": [
+      {
+        "type": "text",
+        "id": "heading",
+        "label": "Heading"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "services",
+        "name":"Services",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "service-icons",
+            "label": "Icon Image"
+          },
+          {
+            "type": "text",
+            "id": "service_heading",
+            "label": "Service Text"
+          },
+          {
+            "type": "text",
+            "id": "service_subheading",
+            "label": "Service Sub Text"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Services"
+      }
+    ]
+  }
+  {% endschema %}
+  

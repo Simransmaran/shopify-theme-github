@@ -1,0 +1,122 @@
+<style>
+    .newsletter-group {
+      display: flex;
+      gap: 5rem;
+      padding: 80px 0px;
+      background: #FAF6F6;
+      justify-content: space-evenly;
+      align-items: center;
+  }
+    .newslette-left-side{
+      
+    }
+    .social-icons-group{
+      display:flex;
+      gap:60px;
+    }
+    .newsletter-heading p {
+      margin-bottom: 36px;
+      margin-top: 0;
+  }
+    .newsletter-right-side {
+      padding: 50px;
+      background: #EDF6FF;
+      border-radius: 33px;
+      display: flex;
+      flex-direction: column;
+  }
+    .email-form {
+      position:relative;
+      padding: 10px;
+      border: 1px solid white;
+      border-radius: 20px;
+      background: #ffff;
+  }
+    h2.newsletter-heading {
+      font-size: 97px;
+      color: #27363B;
+      font-weight: 600;
+      margin: 0;
+  }
+  input.email {
+      width:90%;
+      border: none;
+  }
+  img.arrow {
+      position: absolute;
+      right: 30px;
+      bottom: 17px;
+  }
+  </style>
+  
+  
+  
+  <div class="newsletter-group">
+        <div class="newslette-left-side">
+          <h2 class="newsletter-heading">{{ section.settings.newsHeading }}</h2>
+            <div class="social-icons-group">
+              {% for block in section.blocks %}
+                  <div class="icons-group">
+                    {% if block.settings.icons!=blank %}
+                       <img  src="{{ block.settings.icons | img_url:"master"}}" width="40px" height="40px">
+                    {% endif %}
+                </div>
+              {% endfor %}
+             </div>
+        </div>
+    <div class="newsletter-right-side">
+      <p>{{section.settings.news_text}}</p>
+      <form>
+        <div class="email-form">
+        <input type="email" placeholder="Your Email" class="email">
+        <a href="{{ section.settings.email_url }}"><img src="https://cdn.shopify.com/s/files/1/0906/9222/3257/files/Vector_1.svg?v=1730803996" width="15px" height="15px" class="arrow"></a>
+        </div>
+      </form>
+    </div>
+  </div>
+  {% schema %}
+    {
+      "name": "Tiles Newsletter",
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "newsHeading",
+          "label": "Heading"
+        },
+        {
+          "type": "richtext",
+          "id": "news_text",
+          "label": "Form Text"
+        },
+        {
+              "type": "url",
+               "id": "email_url",
+              "label": "Email Link"
+         }
+      ],
+      "blocks": [
+        {
+          "type": "Newsletter",
+          "name":"Social Icons",
+          "settings": [
+            {
+              "type": "image_picker",
+              "id": "icons",
+              "label": "Social Icon"
+            },
+            {
+              "type": "url",
+              "id": "icons_url",
+              "label": "Social Links"
+            }
+            
+          ]
+        }
+      ],   
+      "presets":[
+        {
+          "name":"Tiles Newsletter"
+        }
+      ]
+    }
+  {% endschema %}

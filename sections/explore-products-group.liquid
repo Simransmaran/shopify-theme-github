@@ -1,0 +1,227 @@
+<style>
+    .explore-products-group {
+     
+      max-width:1433px;
+      margin:0 auto;
+      padding:80px 0;
+  }
+  .products-group{
+    display: flex;
+    /* gap:30px; */
+  }
+  .product-cards{
+      padding:10px;
+      display:flex;
+      flex-direction:column;
+      max-width:335px;
+      border-radius:25px;
+      min-height:465px;
+      justify-content: space-between;
+    }
+    .product-cards:hover .overlay{
+      visibility:visible;
+    }
+ .product-cards:hover{
+      box-shadow: 1px 0 10px 6px #d3d3d3;
+ }
+  
+  .img-group{
+     position:relative;
+  }
+    .overlay {
+    visibility: hidden;
+    width: 100%;
+    height: 55px;
+    background: #FF574A;
+    color: #F9F7F6;
+    position: absolute;
+    bottom: 0px;
+    border-radius: 0px 0px 15px 15px;
+    left: 0;
+}
+.explore-head{
+   position: relative;
+}
+  .view-btn {
+      position:absolute;
+      top:0;
+      right:65px;
+      display: flex;
+      background: transparent;
+      border: none;
+      align-items: center;
+      gap: 16px;
+    color:#27363B;
+  }
+.cart-form{
+  text-align:center;
+   /* margin:0 auto; */
+}
+  .add-to-cart-btn{
+    padding-top: 17px;
+    font-size:18px;
+    color:#F9F7F6;
+    background:transparent;
+    border:none;
+    font-weight:bold;
+   
+  }
+    .vendor-name{
+      font-size:12px;
+      color:#B3B3B3;
+    }
+   .tiles-price{
+      color:#FF574A;
+     font-weight:bolder;
+     font-size:19px;
+     margin: 0;
+   }
+    .product-title{
+      margin: 0;
+      padding-bottom: 10px;
+      font-size:16px;
+    }
+ul.variant-select {
+  padding-left: 0;
+  display: flex;
+  gap: 5px;
+  list-style-type:none;
+}
+.tile-product-img{
+  max-width:100%;
+}
+.productbtn{
+  width:10px;
+}
+h2#explore-heading {
+  margin-left: 65px;
+}
+</style>
+<div class=" explore-products-group">
+<div class="explore-head">  
+  <h2 class="testimonial-heading" id="explore-heading">{{ section.settings.heading }}</h2>
+<a href="{{ section.settings.buttontwolink }}" class="view-btn">
+  {{ section.settings.linktwotext -}}
+  <img src="https://cdn.shopify.com/s/files/1/0906/9222/3257/files/Vector_2.svg?v=1730894339">
+</a></div>
+
+<div class="products-group">
+  {% for block in section.blocks %}
+    <div class="product-cards">
+      <div class="img-group">
+        {% if block.settings.product_item.featured_image %}
+          <img src="{{ block.settings.product_item.featured_image | img_url:"master" }}" class="tile-product-img">
+        {% endif %}
+        <div class="overlay">
+          <form action="/cart/add" method="post" id="product-form- {{ block.settings.product_item.id }}" class="cart-form">
+            <input type="hidden" name="id" value="{{ block.settings.product_item.variants.first.id }}">
+            <div>
+            <button type="submit" name="add" class="add-to-cart-btn">Add to cart</button>
+            </div>
+            </form>            
+        </div>
+      </div>
+      <div>
+        <h4 class="vendor-name">{{ block.settings.product_item.vendor }}</h4>
+        <h3 class="product-title">{{ block.settings.product_item.title }}</h3>
+        <p class="tiles-price">{{ block.settings.product_item.price | money_without_trailing_zeros }}</p>
+      </div>
+      <div class="variants">
+            <ul name="id" id="variant-select-{{ block.id }}" class="variant-select">
+              {% for variant in block.settings.product_item.variants %}
+                {% if variant.featured_image!= blank%}
+                  <li value="{{ variant.id }}" class="variant-group">
+                    <img src="{{ variant.featured_image | image_url }}" width="20px" height="20px">
+                  </li>
+                  {% endif %}
+              {% endfor %}
+            </ul>
+      </div>
+    </div>
+   {% endfor %}
+</div>
+</div>
+<script>
+$('.products-group').slick({
+dots: false,
+infinite: true,
+speed: 300,
+slidesToShow: 4,
+slidesToScroll: 1,
+prevArrow:'<button type="button" clsss="slick-prev" id="productbtn"><img src="https://cdn.shopify.com/s/files/1/0906/9222/3257/files/svgexport-43_1_1.png?v=1732169863"></button>',
+nextArrow:'<button type="button" clsss="slick-next" id="productbtnTwo"><img src="https://cdn.shopify.com/s/files/1/0906/9222/3257/files/svgexport-43_2_1.png?v=1732169865"></button>',
+responsive: [
+  {
+    breakpoint: 1024,
+    settings: {
+     
+      slidesToShow: 3,
+      slidesToScroll: 1,
+      infinite: true,
+      dots: true
+    }
+  },
+  {
+    breakpoint: 768,
+    settings: {
+       dots: true,
+     arrows: false,
+      slidesToShow: 2,
+      slidesToScroll: 1
+    }
+  },
+  {
+    breakpoint: 480,
+    settings: {
+       dots: true,
+      arrows: false,
+      slidesToShow: 1,
+      slidesToScroll: 1
+    }
+  }
+  // You can unslick at a given breakpoint now by adding:
+  // settings: "unslick"
+  // instead of a settings object
+]
+});
+</script>
+{% schema %}
+{
+"name": "Explore Products",
+"settings": [
+  {
+  "type": "richtext",
+  "id": "heading",
+  "label": "Heading"
+   },
+  {
+      "type": "richtext",
+      "id": "linktwotext",
+       "label": "Button Text"
+    },
+    {
+      "type": "url",
+      "id": "buttontwolink",
+      "label": "Button Link"
+    }
+],
+"blocks": [
+  {
+    "type": "products",
+    "name":"Product",
+    "settings": [
+      {
+        "type": "product",
+        "id": "product_item",
+        "label": "Products"
+      }
+    ]
+  }
+],
+"presets": [
+  {
+    "name": "Explore Products"
+  }
+]
+}
+{% endschema %}

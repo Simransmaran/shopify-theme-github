@@ -1,0 +1,165 @@
+<style>
+    .explore-collection{
+       background-color:#F7F7F7;
+    }
+    .explore-tiles-group {
+      margin: 0 auto;
+      max-width: 1440px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 20px;
+      padding:60px 0 100px 0;
+      position:relative;
+  }
+     .collection-group{
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      gap:20px;
+      max-width:1440px;
+    }
+    
+    .explore-collection-btn{
+      border-radius:29px;
+      background:white;
+      color:#27363B;
+      font-size:19px;
+      padding:8px 20px;
+      display: flex;
+      border: none;
+      text-decoration:none;
+       align-items: center;
+    }
+   .explore-collection-heading {
+      max-width: 710px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+  }
+    h2#collection-heading p {
+      margin: 0;
+  }
+    p.collection-subheading {
+      margin: 0;
+      padding-left: 20px;
+  }
+    .collection-group-cards{
+      position:relative;
+    }
+    .collection-group-cards:hover .collection-overlay{
+      visibility:visible;
+    }
+    .collection-overlay{
+      position:absolute;
+       bottom:9%;
+      left:15%;
+      visibility:hidden;
+    }
+   
+    .view-collection-btn {
+      background: white;
+      color: #27363B;
+      font-size: 19px;
+      padding: 1px 20px;
+      display: flex;
+      border: none;
+      border-radius: 29px;
+      align-items: center;
+      position:absolute;
+      right:0;
+      bottom:20px;
+      margin-top:60px;
+      z-index:2000;
+  }
+    .links{
+      text-decoration:none;
+    }
+  </style>
+  <div class="explore-collection">
+  <div class="explore-tiles-group">
+    <div class="explore-collection-heading">
+      <h2 class="testimonial-heading" id="collection-heading">{{ section.settings.heading }}</h2>
+      <p class="collection-subheading">{{ section.settings.Subheading }}</p>
+    </div>
+  
+    <!-- <div class="collection-group"> -->
+        {% if section.blocks.size > 0 %}
+      {% for block in section.blocks %}
+        {% assign collection = block.settings.choose_collection %}
+        <div class="collection-group-cards">
+          {% if collection != blank %}
+            <img src="{{ collection.image | img_url:"master"}}">
+          {% endif %}
+          <div class="collection-overlay">
+            <a href="{{ collection.url }}" class="explore-collection-btn">{{ collection.title }}<img src="https://cdn.shopify.com/s/files/1/0906/9222/3257/files/svgexport-43_3.svg?v=1730886068"></a>
+          </div>
+        </div>
+      {% endfor %}
+    {% else %}
+  {% for collection in collections , limit: 6 %}
+    <div class="collection-group-cards">
+          {% if collection.image != blank %}
+            <img src="{{ collection.image | img_url:"master"}}">
+            {% else %}
+            <img src="https://cdn.shopify.com/s/files/1/0906/9222/3257/files/tile4.png?v=1730894719">
+          {% endif %}
+          <div class="collection-overlay">
+            <a  href="{{ collection.url }}" class="explore-collection-btn">{{ collection.title }}<img src="https://cdn.shopify.com/s/files/1/0906/9222/3257/files/svgexport-43_3.svg?v=1730886068"></a>
+          </div>
+    </div>
+  {% endfor %}
+    {% endif %}
+  
+      
+    <!-- </div> -->
+    <a href="{{ section.settings.buttonLink }}" class="view-collection-btn">{{ section.settings.buttonText}}<img src="https://cdn.shopify.com/s/files/1/0906/9222/3257/files/svgexport-43_3.svg?v=1730886068"></a>
+  </div>
+  </div>
+  {% schema %}
+  {
+    "name": "Explore Tiles Collection",
+    "settings": [
+      {
+        "type": "richtext",
+        "id": "heading",
+        "label": "Heading"
+      },
+      {
+        "type": "textarea",
+        "id": "Subheading",
+        "label": "Sub Heading"
+      },
+      {
+          "type": "richtext",
+          "id": "buttonText",
+          "label": "Button Text"
+      },
+      {
+        "type": "url",
+        "id": "buttonLink",
+        "label": "Link"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "explore",
+        "name":"Collections",
+        "settings": [
+          {
+            "type": "collection",
+            "id": "choose_collection",
+            "label": "Choose Collection"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Explore Tiles Collection"
+      }
+    ]
+  }
+  {% endschema %}
+  

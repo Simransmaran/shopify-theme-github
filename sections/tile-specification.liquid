@@ -1,0 +1,146 @@
+<style>
+    .tile-specification-group {
+      margin: 0 auto;
+      max-width: 1431px;
+      padding:80px 0;
+  }
+    .tile-specification-img-group{
+      position:relative;
+      margin:0 auto;
+    }
+    .items{
+      position:absolute;
+    }
+     .item-content{
+        visibility: hidden;
+        z-index:1;
+        max-width: 350px;
+        min-height:300px;
+        background-color:white;
+        color: black;
+       padding:10px;
+       box-shadow: 0.5px 1px 10.5px 5px #dddddd;
+        border-radius: 10px;
+      }
+      .items:hover .item-content {
+      visibility: visible;
+    }
+    .tile-img,.product-img{
+      max-width:100%;
+    }
+  </style>
+  <div class="tile-specification-group">
+    <h2 class="testimonial-heading">{{ section.settings.heading }}</h2>
+    <div class="tile-specification-img-group">
+       {% if section.settings.tile_image %}
+      <img src="{{ section.settings.tile_image | img_url:"master"}}" class="tile-img">
+      {% endif %}
+      {% for block in section.blocks %}
+      <div class="items" style="left:{{block.settings.hrpositions}}%; top:{{block.settings.vrpositions}}%;">
+         {% if block.settings.hotspoticon %}
+        <img src="{{ block.settings.hotspoticon | img_url:"master"}}" class="hotspotss" >
+          {% endif %}
+        <div class="item-content" style="text-align:{{block.settings.textalignment}}">
+          {% if block.settings.productimage %}
+            <img src="{{ block.settings.productimage | img_url:"master"}}" class="product-img" >
+          {% endif %}
+          <h3>{{ block.settings.title }}</h3>
+          <p>{{ block.settings.features }}</p>
+        </div>
+      </div>
+        {% endfor %}
+    </div>
+  </div>
+  
+  {% schema %}
+  {
+    "name": "Tile Specification",
+    "settings": [
+      {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading"
+    },
+    {
+      "type": "image_picker",
+      "id": "tile_image",
+      "label": "Image"
+    }
+    ],
+     "blocks": [
+      {
+        "type": "TileSpecification",
+        "name":"hotspots",
+        "settings": [
+            {
+              "type": "image_picker",
+              "id": "hotspoticon",
+              "label": "Hotspot Icon"
+            },
+          {
+            "type": "image_picker",
+              "id": "productimage",
+              "label": "Product Image"
+          },
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Tilte"
+          },
+          {
+            "type": "textarea",
+            "id": "features",
+            "label": "Description"
+          },
+          {
+            "type": "select",
+            "id": "textalignment",
+            "label": "Vertical alignment",
+              "options": [
+                {
+                  "value": "left",
+                  "label": "Left"
+                },
+                {
+                  "value": "center",
+                  "label": "Center"
+                },
+                {
+                  "value": "right",
+                  "label": "Right"
+                }
+              ],
+              "default": "center"
+          },
+          {
+            "type": "range",
+             "id": "hrpositions",
+              "min": 0,
+              "max": 100,
+              "step": 1,
+              "unit": "%",
+              "label": "Horizontal Position",
+              "default": 16  
+          },
+          {
+            "type": "range",
+             "id": "vrpositions",
+              "min": 0,
+              "max": 100,
+              "step": 1,
+              "unit": "%",
+              "label": "Vertical Position",
+              "default": 16  
+          }
+          
+        ]
+      }
+     ],
+    "presets": [
+      {
+        "name": "Tile Specification"
+      }
+    ]
+  }
+  {% endschema %}
+  

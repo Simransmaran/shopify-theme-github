@@ -1,0 +1,131 @@
+<style>
+    .floor{
+       background-color:#F7F7F7;
+    }
+    .floor-group{
+      margin: 0 auto;
+      max-width:1451px;
+    }
+    .floor-group-sides{
+      margin: 0 auto;
+      display:flex;
+      gap:18px
+    }
+    h2.floor-heading p {
+        margin: 0;
+    }
+    h2.floor-heading {
+      margin: 0;
+       max-width:1451px;
+      font-size: 237px;
+      font-weight: bolder;
+      text-align: center;
+      color:#27363B;
+  }
+  span.colored-text {
+      color: #FF574A;
+  }
+  hr.hr-line {
+    margin: 40px;
+    color:#000000;
+      width: 730px;
+  }
+   p.desc {
+      font-weight: 500;
+      color: #323232;
+  }
+  .floor-group-left-side,.floor-group-right-side{
+      display:flex;
+     align-items:center;
+  }
+    @media(max-width:1440px)
+    {
+      .floor-group{
+          padding:0 20px;
+          }
+       h2.floor-heading {
+      font-size: 170px;
+      }
+    }
+    @media(max-width:1024px)
+    {
+      .floor-group-sides {
+          gap: 10rem;
+          justify-content: center;
+          align-items: center;
+      }
+      .floor-group{
+      padding:0 20px;
+      }
+      h2.floor-heading {
+      font-size: 120px;
+      }
+      hr.hr-line {
+        display:none;
+      }
+    }
+  @media(max-width:768px)
+    {
+      .floor-group-sides{
+        gap: 10rem;
+      }
+      .floor-group{
+      padding:0 20px;
+      }
+      h2.floor-heading {
+      font-size: 120px;
+      }
+      hr.hr-line {
+        display:none;
+      }
+    }
+  @media(max-width:580px){
+     h2.floor-heading {
+      font-size: 57px;
+      }
+    .floor-group-sides{
+        gap: 0;
+      }
+  }
+  </style>
+  <div class="floor">
+  <div class="floor-group">
+    <h2 class="floor-heading">{{ section.settings.floorHeading }}</h2>
+    <div class="floor-group-sides">
+        <div class="floor-group-left-side">
+          <p class="desc">{{ section.settings.description }}</p>
+          <hr class="hr-line">
+        </div>
+        <div class="floor-group-right-side">
+          <p class="desc">{{ section.settings.text }}</p>
+        </div>
+    </div>
+  </div>
+  </div>
+  {% schema %}
+    {
+      "name": "Floor",
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "floorHeading",
+          "label": "Heading"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Decription"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Text"
+        }
+      ],
+      "presets": [
+        {
+          "name": "Floor"
+        }
+      ]
+    }
+  {% endschema %}

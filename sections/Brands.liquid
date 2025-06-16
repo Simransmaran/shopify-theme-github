@@ -1,0 +1,146 @@
+<style>
+    .tooltip-group{
+      max-width:169px;
+      min-height:66px;
+      display: flex!important;
+      flex-direction: column;
+     padding: 10px 20px;
+    box-shadow: 3px 2px 8px 6.5px rgba(233, 233, 233, 0.61);
+      border-radius: 29px;
+      background: #ffffff69;
+      position: absolute;
+    }
+    .brand-subgroup{
+      margin: 0px auto;
+      display: flex!important;
+      flex-direction: column;
+      align-items: center;
+      max-width: 850px;
+      
+    }
+    .color-text{
+      color:#F1720C;
+     
+    }
+    .brand-heading{
+       font-size: 90px;
+      line-height: normal;
+        color:#2E251A;
+       text-align: center;
+      margin-bottom: 0;
+      position: relative;
+    }
+    .brand-sub-heading{
+       font-size: 32px;
+      margin: 0;
+      text-align: center;
+        color:#2E251A;
+    }
+    .digits{
+      font-size:24px;
+      margin: 0;
+    }
+    .Brand-group {
+      padding-bottom: 80px;
+  }
+    .tooltip-subheading{
+        margin-bottom: 0;
+    }
+    .line-img{
+      max-width:100%;
+    }
+    .tooltip-group{
+      visibility:hidden;
+    }
+    .brand-subgroup:hover .tooltip-group{
+      visibility:visible;
+    }
+    
+  </style>
+  
+  
+  <div class="Brand-group" style="background:{{section.settings.bgColor  }}">
+    <div class="brand-subgroup">
+      <h2 class="brand-heading">{{ section.settings.main_heading }} <img  class="line-img" src="https://cdn.shopify.com/s/files/1/0906/9222/3257/files/design-syndrome-doodle-line-32.png?v=1732179768" width="487px" height="115px"></h2>
+       <h4 class="brand-sub-heading">{{ section.settings.main_sub_heading }}</h4>
+      {% for block in section.blocks %}
+        <div class="tooltip-group" style="left:{{ block.settings.leftPosition}}%; top:{{ block.settings.topPosition}}%;">
+          <h3 class="digits">{{ block.settings.heading }}</h3>
+          <p class="tooltip-subheading">{{ block.settings.subheading }}</p>
+        </div>
+    {% endfor %}
+    </div>
+  </div>
+  
+  
+  {% schema %}
+    {
+      "name": "Brands",
+      "settings": [
+        {
+            "type": "color",
+            "id": "bgColor",
+            "label": "Background Color"
+          },
+      {
+        "type": "textarea",
+        "id": "main_heading",
+        "label": "Heading"
+      },
+        {
+          "type": "checkbox",
+           "id": "check",
+           "label": "Image"
+        },
+      {
+        "type": "textarea",
+        "id": "main_sub_heading",
+        "label": " Sub Heading"
+      }
+      ],
+      "blocks": [
+      {
+        "type": "multipleCards",
+        "name":"ToolTip",
+        "settings": [
+      {
+        "type": "textarea",
+         "id": "heading",
+         "label": "Heading"
+      },
+      {
+        "type": "textarea",
+         "id": "subheading",
+         "label": "Subheading"
+      },
+          {
+            "type": "range",
+            "id": "leftPosition",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "unit": "%",
+            "label": "Left Position",
+            "default": 0
+          },
+          {
+            "type": "range",
+            "id": "topPosition",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "unit": "%",
+            "label": "Top Position",
+            "default": 0
+          }
+        ]
+  }
+      ],
+      "presets": [
+        {
+          "name": "Brands"
+        }
+      ]
+    }
+  {% endschema %}
+  

@@ -1,0 +1,194 @@
+<style>
+    .about{
+      background:#FAF6F6;
+    }
+    .about-us-group{
+      display:flex;
+      gap:6rem;
+      padding:80px 250px;
+    }
+     .about-us-heading {
+      margin: 0;
+      color: #27363B;
+      font-size: 93px;
+      font-weight: revert-layer;
+  }
+    .about-us-heading p{
+      margin:0;
+    }
+    .about-us-right-side{
+       display:flex;
+        gap:20px;
+    }
+    .about-us-first-group{
+       max-width:511px;
+    }
+    .about-us-second-group{
+      position:relative;
+      background:#EDF6FF;
+      max-width:404px;
+      min-height:345px;
+      padding:40px 20px;
+      border-radius:25px;
+    }
+     .about-us-third-group{
+      position:relative;
+      background:#ffff;
+      max-width:404px;
+      min-height:345px;
+      padding:40px 20px;
+      border-radius:25px;
+    }
+   .about-us-btn {
+      padding: 0px 18px;
+      display: flex;
+      border: none;
+      border-radius: 30px;
+      align-items: center;
+      justify-content: center;
+     position: absolute;
+      bottom: 15px;
+     right:30px;
+     color:#27363B;
+  }
+    span.color-text {
+      color: #FF574A;
+  }
+    #aboutbtnOne{
+      background:white;
+    }
+    #aboutbtntwo{
+      text-align:center;
+      background:#F5F5F5;
+    }
+  </style>
+  <div class="about">
+    <div class="about-us-group">
+      <div class="about-us-first-group">
+        <h2 class="about-us-heading">{{ section.settings.heading }}</h2>
+        <div class="first-group">
+          <h3>{{ section.settings.subheading }}</h3>
+          <p>{{ section.settings.description }}</p>
+        </div>
+      </div>
+      <div class="about-us-right-side">
+        {% for block in section.blocks %}
+          {% case block.type %}
+            {% when 'MissionaboutUs' %}
+              <div class="about-us-second-group">
+                <h3>{{ block.settings.mission_heading }}</h3>
+                <p>{{ block.settings.mission_description }}</p>
+               <a href="{{block.settings.buttonlink }}" class="about-us-btn" id="aboutbtnOne">
+                  {{ block.settings.linktext -}}
+                  <img src="https://cdn.shopify.com/s/files/1/0906/9222/3257/files/svgexport-43_3.svg?v=1730886068">
+                </a>
+              </div>
+            {% when 'Quality' %}
+              <div class="about-us-third-group">
+                <h3>{{ block.settings.quality_heading }}</h3>
+                <p>{{ block.settings.quality_description }}</p>
+                <h3>{{ block.settings.innovation_heading }}</h3>
+                <p>{{ block.settings.innovation_description }}</p>
+                <a href="{{block.settings.buttonlink }}" class="about-us-btn" id="aboutbtntwo">
+                  {{ block.settings.linktwotext -}}
+                  <img src="https://cdn.shopify.com/s/files/1/0906/9222/3257/files/svgexport-43_3.svg?v=1730886068">
+                </a>
+              </div>
+          {% endcase %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+  {% schema %}
+  {
+    "name": "About US",
+    "settings": [
+       {
+        "type": "richtext",
+        "id": "heading",
+        "label": "Heading"
+      },
+        {
+          "type": "richtext",
+          "id": "subheading",
+          "label": "Sub Heading"
+        },
+       {
+        "type": "textarea",
+        "id": "description",
+        "label": "Description"
+      },
+    ],
+    "blocks": [
+      {
+        "type": "MissionaboutUs",
+         "name":" Mission Block",
+        "settings": [
+          {
+            "type": "richtext",
+            "id": "mission_heading",
+            "label": "Title"
+          },
+          {
+            "type": "textarea",
+            "id": "mission_description",
+            "label": "Description"
+          },
+          {
+            "type": "richtext",
+            "id": "linktext",
+             "label": "Button Text"
+          },
+          {
+            "type": "url",
+            "id": "buttonlink",
+            "label": "Button Link"
+          }
+        ],
+      },
+      {
+        "type": "Quality",
+        "name":"Quality Block",
+        "settings": [
+           {
+            "type": "richtext",
+            "id": "quality_heading",
+            "label": "Title"
+          },
+          {
+            "type": "textarea",
+            "id": "quality_description",
+            "label": "Description"
+          },
+           {
+            "type": "richtext",
+            "id": "innovation_heading",
+            "label": "Title"
+          },
+          {
+            "type": "textarea",
+            "id": "innovation_description",
+            "label": "Description"
+          },
+          {
+            "type": "richtext",
+            "id": "linktwotext",
+             "label": "Button Text"
+          },
+          {
+            "type": "url",
+            "id": "buttontwolink",
+            "label": "Button Link"
+          }
+        ]
+      }
+  
+    ],
+    "presets": [
+      {
+        "name": "About Us"
+      }
+    ]
+  }
+  {% endschema %}
+  
